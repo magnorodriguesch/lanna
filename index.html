@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Lanna ❤️</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    
+    <div id="music-warning">Aumente o som para uma experiência melhor 🔊</div>
+
+    <button id="heart-button">
+        <span id="heart-icon">❤️</span> 
+        <div id="button-text">APERTE!</div>
+    </button>
+
+    <script>
+        const heartButton = document.getElementById('heart-button');
+        
+        heartButton.addEventListener('click', () => {
+            // 1. Define a "bandeira" da música
+            localStorage.setItem('playMusic', 'true');
+            
+            // 2. Inicia o efeito de escurecer a tela
+            document.body.classList.add('fade-out');
+
+            // 3. Muda de página após o fade-out (0.5 segundos)
+            setTimeout(() => {
+                window.location.href = 'lanna.html';
+            }, 500); 
+        });
+    </script>
+</body>
+</html>

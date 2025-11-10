@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossas Lembranças 🥰</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body class="page-lanna">
+
+    <div id="volume-control">
+        <span class="volume-icon">🔇</span>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+        <span class="volume-icon">🔊</span>
+    </div>
+
+    <audio id="background-music" loop style="display:none;">
+        <source src="recado-a-minha-amada.mp4" type="audio/mp4">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    
+    <div id="tab-container">
+        
+        <div id="tab-menu">
+            <button class="tab-button active" data-tab="mensagem">💌 Pra Lanna ❤️</button>
+            <button class="tab-button" data-tab="midia">📷 Nossos momentos</button>
+            <button class="tab-button" data-tab="especial">📜 Especial ❤️</button>
+        </div>
+
+        <div id="mensagem" class="tab-content active">
+            
+            <h1>SURPRESA AMOR</h1> 
+            
+            <p>
+                <br><br>
+                Um pequeno presente para você, meu amor! Te amo demais!!!
+                <br>
+            </p>
+        </div>
+
+        <div id="midia" class="tab-content">
+            <h2 id="midia-title">EU E MEU AMOR</h2>
+            
+            <div id="midia-grid">
+                
+                <div class="midia-item"> 
+                    <video width="100%" height="100%" autoplay loop muted playsinline>
+                        <source src="meuamor.mp4" type="video/mp4"> 
+                        Seu navegador não suporta vídeos.
+                    </video>
+                </div>
+                
+                <div class="midia-item"> 
+                    <video width="100%" height="100%" autoplay loop muted playsinline>
+                        <source src="meuamor1.mp4" type="video/mp4"> 
+                        Seu navegador não suporta vídeos.
+                    </video>
+                </div>
+                
+                <div class="midia-item">
+                    <img src="meuamor2.jpg" alt="Lembrança 1">
+                </div>
+
+                <div class="midia-item">
+                    <img src="meuamor3.jpg" alt="Lembrança 2">
+                </div>
+
+                <div class="midia-item">
+                    <img src="meuamor4.jpg" alt="Lembrança 3">
+                </div>
+
+                <div class="midia-item">
+                    <img src="meuamorfoto1.jpg" alt="Lembrança 4">
+                </div>
+
+            </div>
+        </div>
+        
+        <div id="especial" class="tab-content">
+            <h2>Minha Mensagem Especial!</h2>
+            <p>
+                Meu amor,<br>
+                Eu precisava escrever e te falar, com a máxima sinceridade do meu coração, pra que vc entenda o nível de amor que eu sinto por vc. Depois que vc chegou na minha vida, tudo mudou, e agora eu só consigo pensar em vc.
+            </p>
+            <p>
+                Desde o dia em que meus olhos te perceberam de verdade, entendi que havia algo especial, um amor perfeito que eu nem sabia que procurava. Quando te conheci, tive uma certeza: vc é a mulher que eu quero pro resto da minha vida.
+            </p>
+            <p>
+                O seu amor é de longe um dos melhores presentes que a vida já me deu. Vc deixa até os meus dias mais tristes felizes. Cada momento que estamos juntos, cada risada sua, cada conversa, cada abraço apertado, estes nossos momentos juntos são os melhores da minha vida.
+            </p>
+            <p>
+                Eu te amo demais e é um amor que eu nunca senti antes por nenhuma outra pessoa. E é por causa desse amor imenso que eu quero seguir minha vida com vc do meu lado.
+            </p>
+            <p>
+                Quero que você saiba que meu coração te escolheu para ser a mulher que eu vou levar para todo o sempre. Não se trata de uma promessa vazia, mas de um desejo. Meu sonho é construir uma história do seu lado e se lembrar lá na frente como foi o nosso começo.
+            </p>
+            <p>
+                Eu quero que você seja a mãe dos meus filhos, a mulher que vai educar e amar os nossos filhos. Que Deus abençoe a gente pra que esse futuro chegue e seja ainda mais lindo do que sonhamos.
+            </p>
+            <p>
+                Você é a minha alma gêmea e o meu porto seguro. Eu te amo, hoje e pra sempre.<br>
+                Com todo o meu amor, Seu fofinho.
+            </p>
+        </div>
+        
+    </div>
+
+    <div class="heart-container" aria-hidden="true"></div>
+
+    <script>
+        const musicElement = document.getElementById('background-music');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        // --- Script da Música (Lê a "bandeira" do localStorage) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            if (localStorage.getItem('playMusic') === 'true' && musicElement) {
+                musicElement.muted = false; 
+                musicElement.volume = 1; 
+                volumeSlider.value = 1;
+
+                var playPromise = musicElement.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        console.log('Autoplay com som funcionou!');
+                    }).catch(error => {
+                        console.log('Autoplay bloqueado. A música pode começar no mudo ou exigir interação.');
+                        musicElement.muted = false; 
+                    });
+                }
+                
+                localStorage.removeItem('playMusic'); 
+            }
+        });
+
+        // --- Script da Barra de Volume ---
+        if (volumeSlider && musicElement) {
+            volumeSlider.addEventListener('input', () => {
+                musicElement.volume = volumeSlider.value;
+                musicElement.muted = (volumeSlider.value == 0);
+            });
+        }
+
+        // --- Script do Coração Caindo ---
+        const heartContainer = document.querySelector('.heart-container');
+        const numHearts = 30;
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️'; 
+            
+            const randomHue = Math.floor(Math.random() * 60) + 330; 
+            heart.style.filter = `hue-rotate(${randomHue}deg) saturate(1.5)`; 
+            
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.animationDuration = `${Math.random() * 5 + 5}s`; 
+            heart.style.opacity = Math.random() * 0.5 + 0.5; 
+            heart.style.fontSize = `${Math.random() * 15 + 25}px`; 
+            
+            heartContainer.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, (parseFloat(heart.style.animationDuration) * 1000) - 500); 
+        }
+        for (let i = 0; i < numHearts; i++) { createHeart(); }
+        setInterval(createHeart, 500); 
+
+
+        // --- Script para a Funcionalidade das Abas ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-tab');
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    button.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
